@@ -27,6 +27,7 @@
 <link href="css/jquery.bxslider.css" rel="stylesheet" />
 <!-- Responsive -->
 <link href="css/responsive.css" rel="stylesheet" />
+<link type="text/javascript" rel="stylesheet" href="validate.js">
 
 
 </head>
@@ -125,37 +126,37 @@
 					<li class="fileds">
 						<div class="name_fileds" >
 							<label>First Name <b><span class="formerror" id="sname"></span></b> </label> 
-							<input name="firstname" onblur="focus()" onkeyup="specialchar()" onkeyup="digitn()" onkeyup="clearErrors()" type="text" id="fname" /> 
+							<input name="firstname" onblur="emptybox()"  onkeyup="specialchar()"  onkeyup="clearErrors()" type="text" id="fname" /> 
 						</div>
 						<div class="name_fileds" >
 							<label>Last Name <b><span class="formerror" id="slname"></span></b></label> 
-							<input name="lastname" onblur="focus()" onkeyup="specialcharl()" onkeyup="clearErrors()" type="text" id="lname"  /> 
+							<input name="lastname" onblur="emptyboxL()" onkeyup="specialcharl()"  onkeyup="clearErrors()" type="text" id="lname"  /> 
 						</div>
 					</li>
 					<li class="fileds">
 						<div class="phone_fileds" >
 							<label>Phone No <b><span class="formerror" id="sphone"></span></b> </label>
-							<input name="phone" onkeyup="clearErrors()" type="text" id="fphone"/>
+							<input name="phone" onblur="emptyboxP()" onkeyup="specialcharp()"  onkeyup="clearErrors()" type="text" id="fphone"/>
 						</div>
 						<div class="phone_fileds" >
 							<label>Office No <b><span class="formerror" id="soffice"></span></b> </label>
-							<input name="office" onkeyup="digitpphone()" onkeyup="clearErrors()" type="text" id="foffice"/> 
+							<input name="office" onblur="emptyboxO()" onkeyup="specialcharO()" onkeyup="clearErrors()" type="text" id="foffice"/> 
 						</div>
 					</li>					
 					<li class="fileds">
 						<div class="email_fileds" >
 							<label>Email <b><span class="formerror" id="semail"></span></b></label> 
-							<input name="email" onkeyup="clearErrors()" type="text" id="femail"/> 
+							<input name="email" onblur="emptyboxE()" onsubmit="Emailverify()" onkeyup="specialcharE()" onkeyup="clearErrors()" type="text" id="femail"/> 
 						</div>
 						<div class="pass_fileds" >
 							<label>Password <b><span class="formerror" id="spass"></span></b></label> 
-							<input name="password" onkeyup="clearErrors()" type="text" id="fpass" value="" /> 
+							<input name="password"  onblur="emptyboxP()" onkeyup="clearErrors()" type="text" id="fpass" value="" /> 
 						</div>
 					</li>
 					<li class="fileds">
 						<div class="pass_fileds">
 							<label>Confirm Password <b><span class="formerror" id="sconfirm"></span></b> </label>
-							<input name="confirmpassword" onkeyup="clearErrors()" type="text" id="fconfirm" value="" /> 
+							<input name="confirmpassword" onkeyup="confirmpassV()" onblur="emptyboxC()" onkeyup="clearErrors()" type="text" id="fconfirm" value="" /> 
 						</div>
 							<div class="dob_fileds selectbox">
 								<label>My birthdate is <b><span class="formerror" id="sbirth"></span></b> </label>
@@ -275,7 +276,7 @@
 						</div>
 						<div class="about_you_fileds">
 						<label>About you <b><span class="formerror" id="sabout"></span></b></label>
-						<textarea id="fabout" onkeyup="clearErrors()"></textarea>
+						<textarea id="fabout" onblur="emptyboxB()" onkeyup="clearErrors()"></textarea>
 						</div>						
 					</li>
 				</ul>
@@ -476,6 +477,7 @@ Live a life without regrets and take action today!</p>
 
 </body>
 <script>
+	//for clearing error
 	function clearErrors(){
 	errors = document.getElementsByClassName('formerror');
 	for(let item of errors)
@@ -483,48 +485,167 @@ Live a life without regrets and take action today!</p>
 		item.innerHTML = "";
 	}	
 	}
-	 function focus(){
-		document.getElementById('sname').innerHTML=" **Enter Only Digits";
-	 }	
-	
+      //onblur funtion for first name
+	 function emptybox(){
+		var fname = document.getElementById('fname').value;
+		if(fname == ""){
+			document.getElementById('sname').innerHTML=" **please fill the name";
+			return false;
+		}
+		onkeydown = clearErrors();
+		}
+		//onblur function for last name
+	   function emptyboxL(){
+		var lname = document.getElementById('lname').value;
+		if(lname == ""){
+			document.getElementById('slname').innerHTML=" **please fill the name";
+			return false;
+		}
+		onkeydown = clearErrors();
+		}
+		//onblur funtion for phone
+		function emptyboxP(){
+		var phone = document.getElementById('fphone').value;
+		if(phone == ""){
+		document.getElementById('sphone').innerHTML=" **Please fill the phone number";
+			return false;
+		}
+		onkeydown = clearErrors();
+		}
+		//blur function for office number
+		function emptyboxO(){
+		var office = document.getElementById('foffice').value;
+		if(office == ""){
+		document.getElementById('soffice').innerHTML=" **Please fill the office number";
+		var errors = document.getElementById('soffice').innerHTML ;
+			return false;
+		}
+		onkeydown = clearErrors();
+		}
+		//blur function for email
+		function emptyboxE(){
+		var email = document.getElementById('femail').value;
+		if(email == ""){
+		document.getElementById('semail').innerHTML=" **please fill the email";
+		var errors = document.getElementById('semail').innerHTML ;
+			return false;
+		}		
+        onkeydown = clearErrors();
+		}
+		// blur function for password
+		function emptyboxP(){
+		var pass = document.getElementById('fpass').value;
+		if(pass == ""){
+		document.getElementById('spass').innerHTML=" **Please fill the password";
+		var errors = document.getElementById('spass').innerHTML ;
+			return false;
+		}
+		onkeydown = clearErrors();
+		}
+		//blur function for confirm pass
+		function emptyboxC(){
+	    var conf = document.getElementById('fconfirm').value;
+		if(conf == ""){
+		document.getElementById('sconfirm').innerHTML=" **Please fill confirm password";
+		var errors = document.getElementById('sconfirm').innerHTML ;
+			return false;
+		}
+		onkeydown = clearErrors();
+		}
+		//blur function for About
+		function emptyboxB(){
+		var fabout = document.getElementById('fabout').value;
+		if(fabout == ""){
+		document.getElementById('sabout').innerHTML=" **please fill about you";
+		var errors = document.getElementById('sabout').innerHTML ;
+			return false;
+		}
+		onkeydown = clearErrors();	
+		}
+	    //for first name
         function specialchar(){
-		var iChars = "!@#$%^&*()_+<>~:,.'`|/" ;
+		var iChars = "!@#$%^&*()_+<>~:,.'`|/0123456789" ;
 		var fname = document.getElementById('fname').value;
 		for(var i=0;i<fname.length;i++)
 		if(iChars.indexOf(fname.charAt(i))!= -1)
 		{
-		document.getElementById('sname').innerHTML=" **Special Characters not allowed";
+		document.getElementById('sname').innerHTML=" **Enter only Alphabates";
 		var errors = document.getElementById('sname').innerHTML ;
 			return false;
 		}
 		onkeydown = clearErrors();
 		}
-
-		
-		function digitpphone(){
-		var phone = document.getElementById('fphone').value;
-		if(!isNaN(phone)){
-		document.getElementById('sphone').innerHTML=" **Enter Only Digits";
-		var errors = document.getElementById('sphone').innerHTML ;
-			return false;
-		}
-		onkeydown = clearErrors();
-	    }
-	   
-		
+		//for last name
 		function specialcharl(){
-		var iChars = "!@#$%^&*()_+<>~:,.'`|/" ;
+		var iChars = "!@#$%^&*()_+<>~:,.'`|/0123456789" ;
 		var lname = document.getElementById('lname').value;
 		for(var i=0;i<lname.length;i++)
 		if(iChars.indexOf(lname.charAt(i))!= -1)
 		{
-		document.getElementById('slname').innerHTML=" **Special Characters not allowed";
+		document.getElementById('slname').innerHTML=" **Enter only Alphabates";
 		var errors = document.getElementById('slname').innerHTML ;
 			return false;
 		}
 		onkeydown = clearErrors();
 	   }
+		//for phone 
+		function specialcharp(){
+		var iChars = "!@#$%^&*()_+<>~:,.'`|/abcdefghijklmnopqrstuvwxyz" ;
+		var phone = document.getElementById('fphone').value;
+		for(var i=0;i<phone.length;i++)
+		if(iChars.indexOf(phone.charAt(i))!= -1)
+		{
+		document.getElementById('sphone').innerHTML=" **Enter only digits";
+		var errors = document.getElementById('sphone').innerHTML ;
+			return false;
+		}
+		onkeydown = clearErrors();
+		}
+		//for office number
+		function specialcharO(){
+		var iChars = "!@#$%^&*()_+<>~:,.'`|/abcdefghijklmnopqrstuvwxyz" ;
+		var office = document.getElementById('foffice').value;
+		for(var i=0;i<office.length;i++)
+		if(iChars.indexOf(office.charAt(i))!= -1)
+		{
+		document.getElementById('soffice').innerHTML=" **Enter only digits";
+		var errors = document.getElementById('soffice').innerHTML ;
+			return false;
+		}
+		onkeydown = clearErrors();
+		}
+		
+		//for email
+		function specialcharE(){
+		var iChars = "!#$%^&*()_+<>~:,'`|/" ;
+		var email = document.getElementById('femail').value;
+		for(var i=0;i<email.length;i++)
+		if(iChars.indexOf(email.charAt(i))!= -1)
+		{
+		document.getElementById('semail').innerHTML=" **this character not allowed";
+		var errors = document.getElementById('semail').innerHTML ;
+			return false;
+		}
+		onkeydown = clearErrors();
+		}
 
+		function Emailverify(){
+			var username = document.getElementById('femail').value;
+			var regx = /[a-z A-Z][0-9].com/;
+			if(regx.test(username)){
+				document.getElementById('semail').innerHTML=" **Invalid Email Id";
+			}
+			return false;
+		}
+		//password realtime matching
+		function confirmpassV(){
+			if(pass != conf){
+		document.getElementById('sconfirm').innerHTML=" **password not matching";
+		var errors = document.getElementById('sconfirm').innerHTML ;
+			return false;
+		} 
+		onkeydown = clearErrors();
+		} 
 	   
 
 	function validateForm(){
@@ -533,67 +654,41 @@ Live a life without regrets and take action today!</p>
 		//validation for first name
 		var fname = document.getElementById('fname').value;
 		if(fname == ""){
-		document.getElementById('sname').innerHTML=" **please fill";
+		document.getElementById('sname').innerHTML=" **please fill the first name";
 		var errors = document.getElementById('sname').innerHTML ;
 			return false;
 		}
-		var fname = document.getElementById('fname').value;
-		if(!isNaN(fname)){
-		document.getElementById('sname').innerHTML=" **Enter Only Digits";
-		var errors = document.getElementById('sname').innerHTML ;
-			return false;
-		}
-        
-		
 
 		//validation for last name
         var lname = document.getElementById('lname').value;
 		if(lname == ""){
-		document.getElementById('slname').innerHTML=" **please fill";
+		document.getElementById('slname').innerHTML=" **please fill the last name";
 		var errors = document.getElementById('slname').innerHTML ;
 			return false;
-		}
-		var lname = document.getElementById('lname').value;
-		if(!isNaN(lname)){
-		document.getElementById('slname').innerHTML=" **Do not Enter Digits";
-		var errors = document.getElementById('slname').innerHTML ;
-			return false;
-		}
-		
+		}	
 
 		//validation for phone
 		var phone = document.getElementById('fphone').value;
 		if(phone.length == ""){
-		document.getElementById('sphone').innerHTML=" **Please fill";
-		var errors = document.getElementById('sphone').innerHTML ;
-			return false;
-		}
-		var phone = document.getElementById('fphone').value;
-		if(isNaN(phone)){
-		document.getElementById('sphone').innerHTML=" **Enter Only Digits";
+		document.getElementById('sphone').innerHTML=" **Please fill the phone number";
 		var errors = document.getElementById('sphone').innerHTML ;
 			return false;
 		}
 		var phone = document.getElementById('fphone').value;
 		if(phone.length != 10){
-		document.getElementById('sphone').innerHTML=" **Phone No is inappropriate";
+		document.getElementById('sphone').innerHTML=" **Phone No should be of 10 digits";
 		var errors = document.getElementById('sphone').innerHTML ;
 			return false;
 		}
-
+		
 		//validation for office number
 		var office = document.getElementById('foffice').value;
 		if(office == ""){
-		document.getElementById('soffice').innerHTML=" **Please fill";
+		document.getElementById('soffice').innerHTML=" **Please fill the office number";
 		var errors = document.getElementById('soffice').innerHTML ;
 			return false;
 		}
-		var office = document.getElementById('foffice').value;
-		if(isNaN(office)){
-		document.getElementById('soffice').innerHTML=" **Enter Only Digits";
-		var errors = document.getElementById('soffice').innerHTML ;
-			return false;
-		}
+		
 
 		//validation for email
 		var email = document.getElementById('femail').value;
@@ -608,6 +703,15 @@ Live a life without regrets and take action today!</p>
 		var errors = document.getElementById('semail').innerHTML ;
 			return false;
 		}
+
+		var email_check = /^[A-Za-z_.]{3,}@[A-Za-z0-9]{3,}[.]{1}[A-Za-z.]{2,6}$/;
+
+        if(email_check.test(email)){
+		document.getElementById('semail').innerHTML = " ";
+	     }else{
+		document.getElementById('semail').innerHTML = "Email is invalid";
+		return false;
+	     }
 
 		//validation for password
 		var pass = document.getElementById('fpass').value;
@@ -635,7 +739,7 @@ Live a life without regrets and take action today!</p>
 		//validation for confirm password
 		var conf = document.getElementById('fconfirm').value;
 		if(conf == ""){
-		document.getElementById('sconfirm').innerHTML=" **Please fill";
+		document.getElementById('sconfirm').innerHTML=" **Please fill confirm password";
 		var errors = document.getElementById('sconfirm').innerHTML ;
 			return false;
 		}
@@ -667,7 +771,7 @@ Live a life without regrets and take action today!</p>
         //validation for about
 		var fabout = document.getElementById('fabout').value;
 		if(fabout == ""){
-		document.getElementById('sabout').innerHTML=" **please fill";
+		document.getElementById('sabout').innerHTML=" **please fill about you";
 		var errors = document.getElementById('sabout').innerHTML ;
 			return false;
 		}	
@@ -697,7 +801,7 @@ Live a life without regrets and take action today!</p>
               alert("you have selected future year")
               return false;
             } else if(ageValue < 18 ){
-              alert("enter age more than 18");
+              alert("age should be more than 18");
               return false;
             } else{
               document.forms.myForm.age.value = ageValue;
